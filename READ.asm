@@ -78,8 +78,8 @@ _start:
 	;funcion para llenar mem
 
 	mov r8, 0
-	mov r13, 66
-	mov r10, 64
+	mov r13, 33
+	mov r10, 32
 	mov r11, 0ffffffffffffffffh
 
 loop:	
@@ -110,16 +110,19 @@ prueba2:
 sigue:
 	mov r12, r10
 	shr r12, 3
-	add r12,-8
-	mov [mem+r12], r11
-	add r10,64
-	add r13, 66
+	add r12,-4
+valor:
+	mov dword [mem+r12], r11d
+	add r10,32
+	add r13, 33
 	mov r11, 0ffffffffffffffffh
-	add r8,1
 	cmp r10, 3200
 	jne loop
-	
 
+	mov eax, [mem]
+	mov r10d, [mem+4]
+	mov r11d, [mem+8]
+holis:
 	;funcion de escritura en pantalla 
 	mov rdi, rax; sys write	
 	mov rax, 1
