@@ -3,8 +3,8 @@ section .data
 	filename db "ROM.txt",0
 	msg1 db "bienvenido a ensamblador mips ",10
 section .bss
-	text resb 3300
-	mem resq 100
+	text resb 3200
+	mem resb 400
 	$zero resb 8
 	$at resb 8
 	$v0 resb 8
@@ -73,6 +73,58 @@ _start:
 	mov rax, 1
 	mov rsi, text
 	mov rdx, 576
+	syscall
+	
+	;funcion para llenar mem
+
+	mov r8, 0
+	mov r13, 66
+	mov r10, 64
+	mov r11, 0ffffffffffffffffh
+
+loop:	
+	mov r9b, [text + r8]
+	cmp r9b, 31h ;49	
+	jne enter
+	rol r11, 1
+prueba:
+	add r8,1
+	cmp r8, r13
+	jne loop
+	jmp sigue
+	
+enter:	
+	cmp r9b,10d
+	jne cero
+	add r8, 1
+	cmp r8, r13 
+	jne loop
+	jmp sigue
+cero:
+	shl r11,1
+prueba2:
+	add r8,1
+	cmp r8, r13
+	jne loop
+
+sigue:
+	mov r12, r10
+	shr r12, 3
+	add r12,-8
+	mov [mem+r12], r11
+	add r10,64
+	add r13, 66
+	mov r11, 0ffffffffffffffffh
+	add r8,1
+	cmp r10, 3200
+	jne loop
+	
+
+	;funcion de escritura en pantalla 
+	mov rdi, rax; sys write	
+	mov rax, 1
+	mov rsi, mem
+	mov rdx, 64
 	syscall
 
 	mov rax, 60; sysexit
