@@ -216,7 +216,7 @@ Iformat:
 	je beq
 	cmp r10d, 5h
 	je bne
-	cmp r10d, 23d
+	cmp r10d, 23h
 	je lw
 
 ; funciones emulades de mips
@@ -321,12 +321,14 @@ bne:
 lw:
 	call rs
 	call imm
-	add r12d,r13d
-	mov r9d, [data + r12d]
-	mov dword [data+r12d],5
+	add r12d, r13d
+	shl r12d,2
+	mov eax, 5
+	mov dword [data+r12d], eax	
+	mov r9d, [data+r12d]
 	call rt
 	mov dword [reg+r13d],r9d ;
-	mov r11d, [reg + r13d]
+	mov r11d, [reg+r13d]
 pruebita:
 	jmp casi
 
