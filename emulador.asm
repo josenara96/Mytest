@@ -67,8 +67,8 @@ main:
 	mov dword [data+212],6d
 	mov dword [data+216],7d
 	mov dword [data+220],8d
-	mov dword [reg+16],-3d
-	mov dword [reg+20],-3d
+	mov dword [reg+16],2d
+	mov dword [reg+20],4d
 	mov dword [reg+31],600d		;$ra inicial es igual a la direccion limite del pc para salir del progrma despues de la ejecuccion
 ;-----------------------------------------------INPRIMO EL MENSAJE DE BIENVENIDA-----------------------------------------------
 
@@ -1285,7 +1285,7 @@ slti:
 	printVal r13
 
 	cmp r12,r13					;comparo lo contenido en RS y RT
-	jl pone1					;si se cumple voy a agregar un 1
+	jl pone1					;si se cumple voy a agregar un 1	
 	mov dword [reg+r14d], 0					;pongo 0 si la condicion no se cumple
 	mov rdi, 1					; sys write	
 	mov rax, 1
@@ -1294,7 +1294,7 @@ slti:
 	jmp casi					;Voy a la parte de codigo donde hago PC+4
 pone1:
 	
-	mov dword [reg+r14d],1				 	;pongo 1 si la condicion se cumple
+	mov dword [reg+r14d],1				;pongo 1 si la condicion se cumple
 	
 	mov rdi, 1					; sys write	
 	mov rax, 1
@@ -1358,7 +1358,7 @@ sltiu:
 
 	call rtu
 	
-	mov r10,r9
+	mov r14,r9
 	
 	mov rdi, 1					; sys write	
 	mov rax, 1
@@ -1380,7 +1380,7 @@ sltiu:
 	
 	cmp r12,r13
 	jl pone1
-	mov dword [reg+r10d],0
+	mov dword [reg+r14d],0
 	mov rdi, 1					; sys write	
 	mov rax, 1
 	mov rsi, enteer
